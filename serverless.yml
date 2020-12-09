@@ -1,0 +1,13 @@
+service: carts
+provider:
+  name: aws
+  runtime: java11
+  timeout: 60
+package:
+  artifact: target/carts-original.jar
+functions:
+  cart:
+    handler: works.weave.socks.cart.StreamLambdaHandler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
