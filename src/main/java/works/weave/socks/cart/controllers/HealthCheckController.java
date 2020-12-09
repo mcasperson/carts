@@ -1,5 +1,7 @@
 package works.weave.socks.cart.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import java.util.Map;
 
 @RestController
 public class HealthCheckController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -34,6 +37,7 @@ public class HealthCheckController {
        try {
           mongoTemplate.executeCommand("{ buildInfo: 1 }");
        } catch (Exception e) {
+          logger.error(e.toString());
           database.setStatus("err");
        }
 

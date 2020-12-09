@@ -9,11 +9,21 @@ provider:
         - 'ec2:CreateNetworkInterface'
         - 'ec2:DescribeNetworkInterfaces'
         - 'ec2:DeleteNetworkInterface'
+      Resource: "*"
 package:
   artifact: target/carts-original.jar
 functions:
   cart:
+    environment:
+      DB_HOSTNAME: ${opt:hostname}
+      DB_PASSWORD: ${opt:password}
     handler: works.weave.socks.cart.StreamLambdaHandler
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
+    vpc:
+      securityGroupIds:
+        - "sg-056ee613e30cfa5b5"
+      subnetIds:
+        - "subnet-0af41f8e0404d7b23"
+        - "subnet-0c2515119bdf77d4c"
