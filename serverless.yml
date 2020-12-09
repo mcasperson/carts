@@ -3,6 +3,12 @@ provider:
   name: aws
   runtime: java11
   timeout: 60
+  iamRoleStatements: # IAM role statements so that services can be accessed in the AWS account
+    - Effect: 'Allow'
+      Action:
+        - 'ec2:CreateNetworkInterface'
+        - 'ec2:DescribeNetworkInterfaces'
+        - 'ec2:DeleteNetworkInterface'
 package:
   artifact: target/carts-original.jar
 functions:
