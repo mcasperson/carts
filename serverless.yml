@@ -27,3 +27,4 @@ functions:
       subnetIds:
         - "subnet-0af41f8e0404d7b23"
         - "subnet-0c2515119bdf77d4c"
+    provisionedConcurrency: 1
