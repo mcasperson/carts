@@ -16,6 +16,10 @@ public class StreamLambdaHandler implements RequestStreamHandler {
     static {
         try {
             handler = SpringBootLambdaContainerHandler.getAwsProxyHandler(CartApplication.class);
+            if (System.getenv("BASE_URI") != null) {
+                handler.getContainerConfig().setServiceBasePath(System.getenv("BASE_URI"));
+                handler.getContainerConfig().setStripBasePath(true);
+            }
             // If you are using HTTP APIs with the version 2.0 of the proxy model, use the getHttpApiV2ProxyHandler
             // method: handler = SpringBootLambdaContainerHandler.getHttpApiV2ProxyHandler(Application.class);
         } catch (ContainerInitializationException e) {
